@@ -1,7 +1,17 @@
 [
-  { "repo": "ali90h/AutoRepro", "oneLine": "repro steps from issues", "type": "tools" },
-  { "repo": "rust-lang/rustc-dev-guide", "oneLine": "clarity edits, examples", "type": "docs" },
-  { "repo": "rust-lang/rust-analyzer", "oneLine": "docs and fixes", "type": "docs" },
-  { "repo": "tldr-pages/tldr", "oneLine": "pages and translations", "type": "docs" },
-  { "repo": "starship/starship", "oneLine": "tiny docs fixes", "type": "fixes" }
+  {
+    "repo": "ali90h/objection-engine",
+    "oneLine": "The very site you are on.",
+    "type": "docs"
+  },
+  {
+    "repo": "ali90h/rust-cli-template",
+    "oneLine": "A template for building command-line tools in Rust.",
+    "type": "tools"
+  },
+  {
+    "repo": "microsoft/vscode",
+    "oneLine": "Fix(perf): improve startup time for large projects.",
+    "type": "fixes"
+  }
 ]

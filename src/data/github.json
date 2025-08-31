@@ -1,0 +1,79 @@
+{
+  "work": [
+    {
+      "repo": "ali90h/AutoRepro",
+      "oneLine": "repro steps from issues",
+      "type": "tools",
+      "language": "Python",
+      "latest": "chore: project bootstrap (cli skeleton + tests + ci)"
+    },
+    {
+      "repo": "rust-lang/rustc-dev-guide",
+      "oneLine": "clarity edits, examples",
+      "type": "docs",
+      "language": "HTML",
+      "latest": "Set up the basic CI infrastructure"
+    },
+    {
+      "repo": "rust-lang/rust-analyzer",
+      "oneLine": "docs and fixes",
+      "type": "docs",
+      "language": "Rust",
+      "latest": "Add a Gitter chat badge to README.md"
+    },
+    {
+      "repo": "tldr-pages/tldr",
+      "oneLine": "pages and translations",
+      "type": "docs",
+      "language": "Markdown",
+      "latest": "Added removing files recursively reference to find.md page"
+    },
+    {
+      "repo": "starship/starship",
+      "oneLine": "tiny docs fixes",
+      "type": "fixes",
+      "language": "Rust",
+      "latest": "Add cross-platform CI"
+    }
+  ],
+  "log": [
+    {
+      "title": "build/npm: add explicit npm version validation in preinstall.js (mirrors Node.js check)",
+      "repo": "microsoft/vscode",
+      "date": "2025-08-31",
+      "url": "https://github.com/microsoft/vscode/pull/260848"
+    },
+    {
+      "title": "download: fix progress with gzip + regression test\"",
+      "repo": "httpie/cli",
+      "date": "2025-08-31",
+      "url": "https://github.com/httpie/cli/pull/1654"
+    },
+    {
+      "title": "# Fix: Respect Content-Length when Content-Encoding is present",
+      "repo": "httpie/cli",
+      "date": "2025-08-31",
+      "url": "https://github.com/httpie/cli/pull/1653"
+    },
+    {
+      "title": "feat: Add strict mode & quality gates for plan command (T-010)",
+      "repo": "ali90h/AutoRepro",
+      "date": "2025-08-30",
+      "url": "https://github.com/ali90h/AutoRepro/pull/20"
+    },
+    {
+      "title": "feat: Add strict mode & quality gates for plan command (T-010)",
+      "repo": "ali90h/AutoRepro",
+      "date": "2025-08-30",
+      "url": "https://github.com/ali90h/AutoRepro/pull/20"
+    }
+  ],
+  "facts": {
+    "lastEvent": "2025-08-31",
+    "now": [
+      "AutoRepro",
+      "docs",
+      "small diffs"
+    ]
+  }
+}

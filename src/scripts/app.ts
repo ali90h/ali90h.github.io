@@ -62,11 +62,10 @@ function toggleHelp(){
   document.getElementById("help")?.classList.toggle("active");
 }
 
-// Data wiring
-(async function boot(){
-  const res = await fetch("/data/github.json").catch(()=>null);
-  const data = res && res.ok ? await res.json() : { facts:{}, work:[], log:[] };
+import data from '/data/github.json';
 
+// Data wiring
+(function boot(){
   const portals = document.getElementById("portals");
   if (portals) {
     const items = [
@@ -83,7 +82,7 @@ function toggleHelp(){
 
   const grid = document.getElementById("work-grid");
   if (grid) {
-    const all = (data.work || []) as any[];
+    const all = (data.work || []);
     const input = document.getElementById("filter") as HTMLInputElement;
     const render = () => {
       const q = (input?.value || "").trim();

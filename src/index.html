@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Ali • OBJECTION ENGINE</title>
   <meta name="description" content="Open-source contributor. Rust / Python. Docs-first.">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; object-src 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; object-src 'none'">
   <link rel="preload" href="/styles/tokens.css" as="style">
   <link rel="preload" href="/styles/base.css" as="style">
   <link rel="preload" href="/styles/modes.css" as="style">
@@ -32,7 +32,7 @@
       <span class="line decor" data-preview-mode="noone">No one.</span>
     </section>
 
-    <section class="portals" style="margin-top: var(--space-8)">
+    <section class="portals mt-8">
       <div class="grid" id="portals"></div>
     </section>
   </main>
@@ -52,7 +52,7 @@
     </div>
   </div>
 
-  <div class="sr-only" aria-live="polite" id="announce" style="position:absolute;left:-9999px;">mode</div>
-  <script type="module" src="/scripts/app.ts"></script>
+  <div class="sr-only" aria-live="polite" id="announce">mode</div>
+  <script type="module" src="/scripts/app.ts" defer></script>
 </body>
 </html>

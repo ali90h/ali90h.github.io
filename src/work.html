@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Work • Ali</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; object-src 'none'">
   <link rel="stylesheet" href="/styles/tokens.css">
   <link rel="stylesheet" href="/styles/base.css">
   <link rel="stylesheet" href="/styles/modes.css">
@@ -20,9 +21,9 @@
   <main class="main">
     <h1>Work</h1>
     <input id="filter" class="mono" placeholder="type: tools/docs/fixes" aria-label="filter">
-    <div class="grid" id="work-grid" style="margin-top: var(--space-4)"></div>
+    <div class="grid mt-4" id="work-grid"></div>
   </main>
   <footer class="footer"><a href="/">home</a><a href="/log.html">log</a><a href="/about.html">about</a></footer>
-  <script type="module" src="/scripts/app.ts"></script>
+  <script type="module" src="/scripts/app.ts" defer></script>
 </body>
 </html>

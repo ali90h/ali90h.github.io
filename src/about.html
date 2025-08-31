@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>About • Ali</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; object-src 'none'">
   <link rel="stylesheet" href="/styles/tokens.css">
   <link rel="stylesheet" href="/styles/base.css">
   <link rel="stylesheet" href="/styles/modes.css">
@@ -28,11 +29,11 @@
     </section>
     <section><h2>scope</h2><p>Rust / Python.</p></section>
     <section><h2>now</h2><ul id="now"></ul></section>
-    <p class="muted" id="bio" style="max-width:62ch">
+    <p class="muted max-w-62ch" id="bio">
       I make small tools and clean docs. I care about readable diffs and clear intent. Tests over claims. No frameworks here by design.
     </p>
   </main>
   <footer class="footer"><a href="/">home</a><a href="/work.html">work</a><a href="/log.html">log</a></footer>
-  <script type="module" src="/scripts/app.ts"></script>
+  <script type="module" src="/scripts/app.ts" defer></script>
 </body>
 </html>

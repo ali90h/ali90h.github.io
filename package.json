@@ -8,12 +8,14 @@
     "fetch": "node ./src/scripts/fetch-github.mjs",
     "build": "npm run fetch && vite build",
     "preview": "vite preview --outDir dist",
-    "test": "vitest run"
+    "test": "vitest run --environment=jsdom"
   },
   "devDependencies": {
     "typescript": "^5.5.4",
     "vite": "^5.4.0",
     "vitest": "^2.0.5"
   },
-  "engines": { "node": ">=18" }
+  "engines": {
+    "node": ">=18"
+  }
 }

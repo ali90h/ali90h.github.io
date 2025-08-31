@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en" data-mode="object" data-calm="false">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>About • Ali</title>
+  <link rel="stylesheet" href="/styles/tokens.css">
+  <link rel="stylesheet" href="/styles/base.css">
+  <link rel="stylesheet" href="/styles/modes.css">
+</head>
+<body>
+  <header class="header">
+    <div class="brand"><span class="name">Ali</span><span class="dot"></span></div>
+    <div class="chips">
+      <button class="chip" data-set-mode="nothing">Nothing</button>
+      <button class="chip" data-set-mode="object">Object</button>
+      <button class="chip" data-set-mode="noone">No one</button>
+      <button class="chip" id="calm">Calm</button>
+    </div>
+  </header>
+  <main class="main">
+    <h1>About</h1>
+    <section><h2>principles</h2>
+      <ul>
+        <li><input type="checkbox" checked aria-label="docs-first"> <span class="desc">docs-first</span></li>
+        <li><input type="checkbox" checked aria-label="small diffs"> <span class="desc">small diffs</span></li>
+        <li><input type="checkbox" checked aria-label="revert-safe"> <span class="desc">revert-safe</span></li>
+      </ul>
+    </section>
+    <section><h2>scope</h2><p>Rust / Python.</p></section>
+    <section><h2>now</h2><ul id="now"></ul></section>
+    <p class="muted" id="bio" style="max-width:62ch">
+      I make small tools and clean docs. I care about readable diffs and clear intent. Tests over claims. No frameworks here by design.
+    </p>
+  </main>
+  <footer class="footer"><a href="/">home</a><a href="/work.html">work</a><a href="/log.html">log</a></footer>
+  <script type="module" src="/scripts/app.ts"></script>
+</body>
+</html>

@@ -3,6 +3,8 @@ name: Build, Test, and Deploy
 on:
   push:
     branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
   workflow_dispatch:
 
 permissions:
@@ -32,7 +34,10 @@ jobs:
       - name: Run tests
         run: npm test
 
-      - name: Build website and check size
+      - name: Build website
+        run: npm run build
+
+      - name: Check bundle size
         run: npm run size
 
       - name: Run Lighthouse CI
@@ -48,6 +53,7 @@ jobs:
           path: ./dist
 
   deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: build_and_test
     runs-on: ubuntu-latest
     environment:

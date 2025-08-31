@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" data-mode="object" data-calm="false">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Ali • OBJECTION ENGINE</title>
+  <meta name="description" content="Open-source contributor. Rust / Python. Docs-first.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; object-src 'none'">
+  <script type="module" crossorigin src="/assets/index-Bh-6H6XE.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-C3Q3fFe7.css">
+</head>
+<body>
+  <header class="header" role="banner">
+    <div class="brand" aria-label="site brand"><span class="name">Ali</span><span class="dot"></span></div>
+    <div class="chips" role="toolbar" aria-label="modes">
+      <button class="chip" data-set-mode="nothing" aria-pressed="false" title="Nothing [N]">Nothing</button>
+      <button class="chip" data-set-mode="object" aria-pressed="true" title="Object [O]">Object</button>
+      <button class="chip" data-set-mode="noone" aria-pressed="false" title="No one [1]">No one</button>
+      <button class="chip" id="calm" aria-pressed="false" title="Calm [C]">Calm</button>
+    </div>
+  </header>
+
+  <main class="main" id="main">
+    <section class="hero" aria-labelledby="h1">
+      <h1 id="h1">OBJECTION ENGINE</h1>
+      <span class="line decor" data-preview-mode="nothing">Nothing I like.</span>
+      <span class="line decor" data-preview-mode="object">Before everything, I object.</span>
+      <span class="line decor" data-preview-mode="noone">No one.</span>
+    </section>
+
+    <section class="portals" style="margin-top: var(--space-8)">
+      <div class="grid" id="portals"></div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <a href="https://github.com/ali90h">github</a>
+    <a href="https://github.com/ali90h/ali90h/issues/new?template=contact.yml">issues</a>
+  </footer>
+
+  <div id="help" aria-live="polite" aria-modal="true" role="dialog">
+    <div class="panel">
+      <h2>Shortcuts</h2>
+      <ul class="mono help-copy">
+        <li>g w → Work</li><li>g l → Log</li><li>g a → About</li>
+        <li>/ → Filter</li><li>? → Help</li><li>n/o/1 → Modes</li><li>c → Calm</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sr-only" aria-live="polite" id="announce" style="position:absolute;left:-9999px;">mode</div>
+</body>
+</html>

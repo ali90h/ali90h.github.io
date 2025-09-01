@@ -31,6 +31,6 @@ jobs:
       - name: Run Lighthouse CI
         run: |
           npm install -g @lhci/cli@0.13.x
-          lhci autorun --lighthouserc-path=./lighthouserc.json --collect.staticDistDir=./dist
+          lhci autorun --lighthouserc-path=./lighthouserc.json --collect.staticDistDir=${{ github.workspace }}/dist
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.GITHUB_TOKEN }}

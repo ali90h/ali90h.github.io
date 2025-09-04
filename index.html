@@ -9,6 +9,7 @@
   <meta name="theme-color" content="#0ea5e9" />
   <meta name="keywords" content="developer tools,CLI applications,Python,Rust,JavaScript,open source,minimalist web development,performance optimization" />
   <link rel="canonical" href="https://ali90h.github.io/" />
+  <link rel="manifest" href="/manifest.json" />
   <link rel="preconnect" href="https://github.com" crossorigin />
   <meta name="robots" content="index,follow" />
   <meta name="author" content="ali90h" />
@@ -133,6 +134,15 @@
     a.inline:hover::after{width:100%}
     @media (prefers-reduced-motion: reduce){.brand .dot,.hero::before{animation:none}.hero::before{opacity:.12}.card{transition:none}.card:hover{transform:none;box-shadow:none}.w{transition:none}.w:hover{transform:none;text-shadow:none}.w::after{display:none}a.inline::after{transition:none}}
     .card small{background:var(--bg-soft);padding:2px 6px;border-radius:4px;font-size:0.8em;color:var(--subtle);margin-left:6px}
+    .search-modal{position:fixed;top:0;left:0;right:0;bottom:0;background:color-mix(in oklab,var(--bg) 80%,transparent);backdrop-filter:blur(8px);z-index:1000;display:none;align-items:flex-start;justify-content:center;padding-top:20vh}
+    .search-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;width:min(500px,90vw);box-shadow:0 8px 32px color-mix(in oklab,var(--accent) 20%,transparent)}
+    .search-input{width:100%;background:var(--bg-soft);border:1px solid var(--border);border-radius:8px;padding:12px 16px;font:inherit;color:var(--text);margin-bottom:16px}
+    .search-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in oklab,var(--accent) 30%,transparent)}
+    .search-results{max-height:300px;overflow-y:auto}
+    .search-result{padding:12px;border-radius:8px;cursor:pointer;border-bottom:1px solid var(--border)}
+    .search-result:hover{background:var(--bg-soft)}
+    .search-result h4{margin:0 0 4px;font-size:0.9em;color:var(--text)}
+    .search-result p{margin:0;font-size:0.8em;color:var(--muted);line-height:1.4}
     .hero{text-align:center}
     .hero::before{left:50%;right:auto;transform:translate(-50%, -10%) rotate(0deg)}
     .w{display:inline-block;position:relative;transition:transform .18s ease, text-shadow .25s ease, color .25s ease}
@@ -158,6 +168,7 @@
           <a href="#projects">Projects</a>
           <a href="#writing">Writing</a>
           <a href="#github">GitHub</a>
+          <button id="search-btn" class="btn" title="Search site" aria-label="Search site content">Search</button>
           <button id="theme" class="btn" title="Toggle theme" aria-label="Toggle between light and dark theme">Theme</button>
         </div>
       </nav>
@@ -307,6 +318,15 @@
   <!-- Live region for announcements -->
   <div id="announcements" aria-live="polite" aria-atomic="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden;"></div>
 
+  <!-- Search Modal -->
+  <div id="search-modal" class="search-modal">
+    <div class="search-box">
+      <input type="text" id="search-input" class="search-input" placeholder="Search projects, writing, and more..." aria-label="Search">
+      <div id="search-results" class="search-results"></div>
+      <p style="text-align:center;margin:16px 0 0;font-size:0.8em;color:var(--muted)">Press Escape to close</p>
+    </div>
+  </div>
+
   <script>
     const btn = document.getElementById('theme');
     const root = document.documentElement;
@@ -326,6 +346,72 @@
     });
     
     document.getElementById('year').textContent = new Date().getFullYear();
+    
+    // Search functionality
+    const searchBtn = document.getElementById('search-btn');
+    const searchModal = document.getElementById('search-modal');
+    const searchInput = document.getElementById('search-input');
+    const searchResults = document.getElementById('search-results');
+    
+    const searchData = [
+      {title: 'AutoRepro CLI', content: 'Transform issue descriptions into reproducible steps and dev-containers. Scan Init Plan Exec Report. Built for maintainers who need clear reproduction paths.', url: '#projects', type: 'project'},
+      {title: 'ali90h.github.io', content: 'Minimalist personal site with zero dependencies. Single HTML file, inline CSS/JS, dark/light theme. Fast, accessible, honest.', url: '#projects', type: 'project'},
+      {title: 'Building CLI tools that developers actually use', content: 'From issue reproduction to automation: lessons learned creating AutoRepro and the importance of tight feedback loops in developer tooling.', url: '#writing', type: 'writing'},
+      {title: 'Zero-dependency web development: A minimalist approach', content: 'How to build fast, accessible websites with just HTML, CSS, and vanilla JavaScript. No frameworks, no build steps, maximum performance.', url: '#writing', type: 'writing'},
+      {title: 'Open Source Contributions', content: '73% commits, 14% code reviews, 11% pull requests across the ecosystem. Focus on developer tooling, performance optimizations, and documentation improvements.', url: '#github', type: 'activity'},
+      {title: 'Current Focus', content: 'Building AutoRepro CLI for issue reproduction, exploring Rust for systems programming, and contributing to open source projects that improve developer experience.', url: '#github', type: 'activity'}
+    ];
+    
+    function showSearch() {
+      searchModal.style.display = 'flex';
+      searchInput.focus();
+    }
+    
+    function hideSearch() {
+      searchModal.style.display = 'none';
+      searchInput.value = '';
+      searchResults.innerHTML = '';
+    }
+    
+    function search(query) {
+      if (!query.trim()) {
+        searchResults.innerHTML = '';
+        return;
+      }
+      
+      const results = searchData.filter(item => 
+        item.title.toLowerCase().includes(query.toLowerCase()) || 
+        item.content.toLowerCase().includes(query.toLowerCase())
+      ).slice(0, 5);
+      
+      searchResults.innerHTML = results.map(item => 
+        `<div class="search-result" data-url="${item.url}">
+          <h4>${item.title}</h4>
+          <p>${item.content.slice(0, 120)}...</p>
+        </div>`
+      ).join('');
+    }
+    
+    searchBtn.addEventListener('click', showSearch);
+    searchModal.addEventListener('click', e => e.target === searchModal && hideSearch());
+    searchInput.addEventListener('input', e => search(e.target.value));
+    searchResults.addEventListener('click', e => {
+      const result = e.target.closest('.search-result');
+      if (result) {
+        window.location.hash = result.dataset.url.slice(1);
+        hideSearch();
+      }
+    });
+    
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && searchModal.style.display === 'flex') {
+        hideSearch();
+      }
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        showSearch();
+      }
+    });
     
     (function(){
       const root = document.querySelector('[data-words]');
@@ -349,6 +435,13 @@
         }
       }
     })();
+    
+    // Service Worker Registration
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js');
+      });
+    }
   </script>
 </body>
 </html>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ali90h - Small tools. Real use.</title>
+    <link>https://ali90h.github.io/</link>
+    <description>Small, honest tools; usefulness over spectacle. Fast site, no libraries, no external fonts.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 04 Sep 2025 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://ali90h.github.io/rss.xml" rel="self" type="application/rss+xml"/>
+    <generator>Hand-crafted RSS</generator>
+    
+    <item>
+      <title>Building CLI tools that developers actually use</title>
+      <link>https://ali90h.github.io/#writing</link>
+      <guid>https://ali90h.github.io/writing/cli-tools-developers-use</guid>
+      <pubDate>Wed, 04 Sep 2025 00:00:00 GMT</pubDate>
+      <description>From issue reproduction to automation: lessons learned creating AutoRepro and the importance of tight feedback loops in developer tooling.</description>
+      <category>DevTools</category>
+      <category>Python</category>
+    </item>
+    
+    <item>
+      <title>Zero-dependency web development: A minimalist approach</title>
+      <link>https://ali90h.github.io/#writing</link>
+      <guid>https://ali90h.github.io/writing/zero-dependency-web-development</guid>
+      <pubDate>Wed, 04 Sep 2025 00:00:00 GMT</pubDate>
+      <description>How to build fast, accessible websites with just HTML, CSS, and vanilla JavaScript. No frameworks, no build steps, maximum performance.</description>
+      <category>Web Dev</category>
+      <category>Performance</category>
+    </item>
+  </channel>
+</rss>

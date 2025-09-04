@@ -198,20 +198,20 @@
         <a class="inline" href="https://github.com/ali90h?tab=repositories">All repos →</a>
       </header>
       <div class="grid">
-        <article class="card span-6">
+        <article class="card span-6" data-repo="ali90h/AutoRepro">
           <h3>AutoRepro <small>CLI</small></h3>
           <p>Transform issue descriptions into reproducible steps and dev‑containers. Scan → Init → Plan → Exec → Report. Built for maintainers who need clear reproduction paths.</p>
           <div class="meta">
             <a class="inline" href="https://github.com/ali90h/AutoRepro">GitHub</a>
             <span>•</span>
-            <span>⭐ 1</span>
+            <span data-stars>⭐ 1</span>
             <span>•</span>
-            <span>Python</span>
+            <span data-language>Python</span>
             <span>•</span>
-            <span>Sep 2025</span>
+            <span data-updated>Sep 2025</span>
           </div>
         </article>
-        <article class="card span-6">
+        <article class="card span-6" data-repo="ali90h/ali90h.github.io">
           <h3>ali90h.github.io <small>Web</small></h3>
           <p>Minimalist personal site with zero dependencies. Single HTML file, inline CSS/JS, dark/light theme. Fast, accessible, honest.</p>
           <div class="meta">
@@ -219,9 +219,9 @@
             <span>•</span>
             <a class="inline" href="https://ali90h.github.io">Live →</a>
             <span>•</span>
-            <span>HTML/CSS</span>
+            <span data-language>HTML/CSS</span>
             <span>•</span>
-            <span>Active</span>
+            <span data-updated>Active</span>
           </div>
         </article>
       </div>
@@ -239,7 +239,7 @@
           <div class="meta">
             <span>Sep 2025</span>
             <span>•</span>
-            <span>5 min read</span>
+            <span data-reading-time>5 min read</span>
             <span>•</span>
             <span>DevTools</span>
             <span>•</span>
@@ -252,7 +252,7 @@
           <div class="meta">
             <span>Sep 2025</span>
             <span>•</span>
-            <span>3 min read</span>
+            <span data-reading-time>3 min read</span>
             <span>•</span>
             <span>Web Dev</span>
             <span>•</span>
@@ -442,6 +442,421 @@
         navigator.serviceWorker.register('/sw.js');
       });
     }
+    
+    // Content Management & Automation - Stage 6 Features
+    
+    // GitHub API Integration for Project Showcase
+    class GitHubAPI {
+      constructor() {
+        this.baseURL = 'https://api.github.com';
+        this.cache = new Map();
+        this.rateLimitRemaining = 60;
+        this.lastRateLimitCheck = 0;
+      }
+      
+      async fetchRepo(owner, repo) {
+        const cacheKey = `${owner}/${repo}`;
+        const cached = this.cache.get(cacheKey);
+        
+        // Return cached data if it's less than 10 minutes old
+        if (cached && (Date.now() - cached.timestamp) < 600000) {
+          return cached.data;
+        }
+        
+        try {
+          const response = await fetch(`${this.baseURL}/repos/${owner}/${repo}`);
+          
+          // Update rate limit info
+          this.rateLimitRemaining = parseInt(response.headers.get('X-RateLimit-Remaining')) || 0;
+          this.lastRateLimitCheck = Date.now();
+          
+          if (response.ok) {
+            const data = await response.json();
+            this.cache.set(cacheKey, { data, timestamp: Date.now() });
+            return data;
+          } else {
+            console.warn(`GitHub API error for ${cacheKey}:`, response.status);
+            return null;
+          }
+        } catch (error) {
+          console.warn(`Failed to fetch repo data for ${cacheKey}:`, error);
+          return null;
+        }
+      }
+      
+      formatDate(dateString) {
+        const date = new Date(dateString);
+        const now = new Date();
+        const diffMs = now - date;
+        const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+        
+        if (diffDays === 0) return 'Today';
+        if (diffDays === 1) return 'Yesterday';
+        if (diffDays < 30) return `${diffDays} days ago`;
+        if (diffDays < 365) return `${Math.floor(diffDays / 30)} months ago`;
+        return `${Math.floor(diffDays / 365)} years ago`;
+      }
+      
+      getLanguageColor(language) {
+        const colors = {
+          'Python': '#3776ab',
+          'JavaScript': '#f7df1e',
+          'TypeScript': '#3178c6',
+          'Rust': '#dea584',
+          'Go': '#00add8',
+          'HTML': '#e34c26',
+          'CSS': '#1572b6',
+          'Shell': '#89e051',
+          'Dockerfile': '#384d54'
+        };
+        return colors[language] || '#6c757d';
+      }
+    }
+    
+    // Reading Time Calculation for Blog Posts
+    function calculateReadingTime(text) {
+      const wordsPerMinute = 200;
+      const words = text.trim().split(/\s+/).length;
+      const minutes = Math.ceil(words / wordsPerMinute);
+      return minutes === 1 ? '1 min read' : `${minutes} min read`;
+    }
+    
+    // Enhanced Content Management
+    function updateReadingTimes() {
+      const articles = document.querySelectorAll('#writing .card');
+      articles.forEach(article => {
+        const content = article.querySelector('p')?.textContent || '';
+        const meta = article.querySelector('.meta');
+        if (meta && content) {
+          const readingTime = calculateReadingTime(content);
+          const readingSpan = meta.querySelector('[data-reading-time]');
+          if (readingSpan) {
+            readingSpan.textContent = readingTime;
+          }
+        }
+      });
+    }
+    
+    // Performance Monitoring using Web APIs
+    class PerformanceMonitor {
+      constructor() {
+        this.metrics = {};
+        this.startTime = performance.now();
+      }
+      
+      measureCoreWebVitals() {
+        // Largest Contentful Paint (LCP)
+        if ('PerformanceObserver' in window) {
+          try {
+            const lcpObserver = new PerformanceObserver((list) => {
+              const entries = list.getEntries();
+              const lastEntry = entries[entries.length - 1];
+              this.metrics.lcp = lastEntry.startTime;
+            });
+            lcpObserver.observe({entryTypes: ['largest-contentful-paint']});
+            
+            // Cumulative Layout Shift (CLS)
+            const clsObserver = new PerformanceObserver((list) => {
+              let clsValue = 0;
+              for (const entry of list.getEntries()) {
+                if (!entry.hadRecentInput) {
+                  clsValue += entry.value;
+                }
+              }
+              this.metrics.cls = clsValue;
+            });
+            clsObserver.observe({entryTypes: ['layout-shift']});
+            
+            // First Input Delay (FID)
+            const fidObserver = new PerformanceObserver((list) => {
+              for (const entry of list.getEntries()) {
+                this.metrics.fid = entry.processingStart - entry.startTime;
+              }
+            });
+            fidObserver.observe({entryTypes: ['first-input']});
+          } catch (error) {
+            console.warn('Performance monitoring not fully supported:', error);
+          }
+        }
+        
+        // Time to Interactive (TTI) approximation
+        window.addEventListener('load', () => {
+          this.metrics.tti = performance.now() - this.startTime;
+        });
+      }
+      
+      getMetrics() {
+        return {
+          ...this.metrics,
+          loadTime: performance.now() - this.startTime,
+          connectionType: navigator.connection?.effectiveType || 'unknown',
+          deviceMemory: navigator.deviceMemory || 'unknown'
+        };
+      }
+      
+      logMetrics() {
+        const metrics = this.getMetrics();
+        console.group('🚀 Performance Metrics');
+        console.log('Load Time:', Math.round(metrics.loadTime), 'ms');
+        if (metrics.lcp) console.log('LCP:', Math.round(metrics.lcp), 'ms');
+        if (metrics.fid) console.log('FID:', Math.round(metrics.fid), 'ms');
+        if (metrics.cls) console.log('CLS:', metrics.cls.toFixed(4));
+        if (metrics.tti) console.log('TTI:', Math.round(metrics.tti), 'ms');
+        console.log('Connection:', metrics.connectionType);
+        console.log('Device Memory:', metrics.deviceMemory, 'GB');
+        console.groupEnd();
+      }
+    }
+    
+    // Privacy-focused Analytics
+    class PrivacyAnalytics {
+      constructor() {
+        this.sessionId = this.generateSessionId();
+        this.pageViewTime = Date.now();
+        this.events = [];
+      }
+      
+      generateSessionId() {
+        return Math.random().toString(36).substring(2, 15);
+      }
+      
+      trackEvent(event, data = {}) {
+        this.events.push({
+          event,
+          data,
+          timestamp: Date.now(),
+          session: this.sessionId
+        });
+        
+        // Keep only last 50 events to prevent memory issues
+        if (this.events.length > 50) {
+          this.events.shift();
+        }
+      }
+      
+      trackPageView() {
+        this.trackEvent('page_view', {
+          path: window.location.pathname,
+          referrer: document.referrer,
+          userAgent: navigator.userAgent.substring(0, 100),
+          language: navigator.language,
+          screenSize: `${screen.width}x${screen.height}`,
+          viewportSize: `${window.innerWidth}x${window.innerHeight}`
+        });
+      }
+      
+      getAnalytics() {
+        return {
+          sessionDuration: Date.now() - this.pageViewTime,
+          eventsCount: this.events.length,
+          lastEvents: this.events.slice(-10),
+          uniqueEvents: [...new Set(this.events.map(e => e.event))]
+        };
+      }
+    }
+    
+    // Error Tracking
+    class ErrorTracker {
+      constructor() {
+        this.errors = [];
+        this.setupGlobalErrorHandling();
+      }
+      
+      setupGlobalErrorHandling() {
+        window.addEventListener('error', (event) => {
+          this.logError({
+            type: 'javascript',
+            message: event.message,
+            filename: event.filename,
+            lineno: event.lineno,
+            colno: event.colno,
+            stack: event.error?.stack,
+            timestamp: Date.now()
+          });
+        });
+        
+        window.addEventListener('unhandledrejection', (event) => {
+          this.logError({
+            type: 'promise',
+            message: event.reason?.message || 'Unhandled promise rejection',
+            stack: event.reason?.stack,
+            timestamp: Date.now()
+          });
+        });
+      }
+      
+      logError(error) {
+        this.errors.push(error);
+        console.warn('🚨 Error tracked:', error);
+        
+        // Keep only last 20 errors
+        if (this.errors.length > 20) {
+          this.errors.shift();
+        }
+      }
+      
+      getErrors() {
+        return this.errors;
+      }
+    }
+    
+    // Accessibility Monitor
+    class AccessibilityMonitor {
+      constructor() {
+        this.issues = [];
+      }
+      
+      checkAccessibility() {
+        this.issues = [];
+        
+        // Check for missing alt text
+        const images = document.querySelectorAll('img:not([alt])');
+        if (images.length > 0) {
+          this.issues.push(`${images.length} images missing alt text`);
+        }
+        
+        // Check for proper heading hierarchy
+        const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        let lastLevel = 0;
+        headings.forEach(heading => {
+          const level = parseInt(heading.tagName.slice(1));
+          if (level > lastLevel + 1) {
+            this.issues.push(`Heading hierarchy jump from H${lastLevel} to H${level}`);
+          }
+          lastLevel = level;
+        });
+        
+        // Check for links without accessible names
+        const links = document.querySelectorAll('a:not([aria-label]):not([title])');
+        links.forEach(link => {
+          if (!link.textContent.trim()) {
+            this.issues.push('Link without accessible name found');
+          }
+        });
+        
+        // Check for buttons without accessible names
+        const buttons = document.querySelectorAll('button:not([aria-label]):not([title])');
+        buttons.forEach(button => {
+          if (!button.textContent.trim()) {
+            this.issues.push('Button without accessible name found');
+          }
+        });
+        
+        return this.issues;
+      }
+      
+      logAccessibilityReport() {
+        const issues = this.checkAccessibility();
+        console.group('♿ Accessibility Report');
+        if (issues.length === 0) {
+          console.log('✅ No accessibility issues detected');
+        } else {
+          console.warn(`⚠️ ${issues.length} accessibility issues found:`);
+          issues.forEach(issue => console.warn(`  • ${issue}`));
+        }
+        console.groupEnd();
+      }
+    }
+    
+    // Initialize Stage 6 Features
+    const gitHubAPI = new GitHubAPI();
+    const performanceMonitor = new PerformanceMonitor();
+    const analytics = new PrivacyAnalytics();
+    const errorTracker = new ErrorTracker();
+    const accessibilityMonitor = new AccessibilityMonitor();
+    
+    // Start monitoring
+    performanceMonitor.measureCoreWebVitals();
+    analytics.trackPageView();
+    
+    // Update project data with live GitHub stats
+    async function updateProjectStats() {
+      const projectCards = document.querySelectorAll('[data-repo]');
+      
+      for (const card of projectCards) {
+        try {
+          const repo = card.getAttribute('data-repo');
+          const [owner, repoName] = repo.split('/');
+          const repoData = await gitHubAPI.fetchRepo(owner, repoName);
+          
+          if (repoData) {
+            const meta = card.querySelector('.meta');
+            if (meta) {
+              // Update stars count
+              const starsSpan = meta.querySelector('[data-stars]');
+              if (starsSpan) {
+                starsSpan.textContent = `⭐ ${repoData.stargazers_count}`;
+              }
+              
+              // Update language
+              const langSpan = meta.querySelector('[data-language]');
+              if (langSpan && repoData.language) {
+                langSpan.textContent = repoData.language;
+                langSpan.style.color = gitHubAPI.getLanguageColor(repoData.language);
+              }
+              
+              // Update last updated
+              const updatedSpan = meta.querySelector('[data-updated]');
+              if (updatedSpan) {
+                updatedSpan.textContent = gitHubAPI.formatDate(repoData.updated_at);
+              }
+            }
+          }
+        } catch (error) {
+          console.warn(`Failed to update stats for ${card.getAttribute('data-repo')}:`, error);
+        }
+      }
+    }
+    
+    // Update reading times for blog posts
+    updateReadingTimes();
+    
+    // Run accessibility check
+    setTimeout(() => {
+      accessibilityMonitor.logAccessibilityReport();
+    }, 1000);
+    
+    // Log performance metrics after page load
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        performanceMonitor.logMetrics();
+      }, 2000);
+    });
+    
+    // Update GitHub stats (with rate limiting consideration)
+    if (navigator.onLine) {
+      setTimeout(updateProjectStats, 1000);
+    }
+    
+    // Track user interactions for analytics
+    document.addEventListener('click', (e) => {
+      if (e.target.tagName === 'A') {
+        analytics.trackEvent('link_click', {
+          href: e.target.href,
+          text: e.target.textContent.substring(0, 50)
+        });
+      } else if (e.target.tagName === 'BUTTON') {
+        analytics.trackEvent('button_click', {
+          id: e.target.id,
+          text: e.target.textContent.substring(0, 50)
+        });
+      }
+    });
+    
+    // Periodic quality assurance checks
+    setInterval(() => {
+      if (Math.random() < 0.1) { // 10% chance every interval
+        accessibilityMonitor.checkAccessibility();
+      }
+    }, 30000); // Every 30 seconds
+    
+    // Expose metrics for debugging
+    window.ali90hMetrics = {
+      performance: () => performanceMonitor.getMetrics(),
+      analytics: () => analytics.getAnalytics(),
+      errors: () => errorTracker.getErrors(),
+      accessibility: () => accessibilityMonitor.checkAccessibility()
+    };
   </script>
 </body>
 </html>

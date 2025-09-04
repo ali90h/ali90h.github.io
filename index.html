@@ -327,21 +327,6 @@
     
     document.getElementById('year').textContent = new Date().getFullYear();
     
-    // Generate sitemap on demand
-    if(location.pathname === '/sitemap.xml') {
-      const pages = [
-        {url: 'https://ali90h.github.io/', lastmod: '2025-09-04', priority: '1.0'},
-        {url: 'https://ali90h.github.io/#projects', lastmod: '2025-09-04', priority: '0.8'},
-        {url: 'https://ali90h.github.io/#writing', lastmod: '2025-09-04', priority: '0.8'}
-      ];
-      const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${pages.map(p => `  <url><loc>${p.url}</loc><lastmod>${p.lastmod}</lastmod><priority>${p.priority}</priority></url>`).join('\n')}
-</urlset>`;
-      document.documentElement.innerHTML = `<pre>${xml}</pre>`;
-      document.contentType = 'application/xml';
-    }
-    
     (function(){
       const root = document.querySelector('[data-words]');
       if(!root) return;

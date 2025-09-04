@@ -7,31 +7,33 @@
   <meta name="description" content="Small, honest tools; usefulness over spectacle. Fast site, no libraries, no external fonts." />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Crect width='256' height='256' rx='56' fill='%23000000'/%3E%3Ctext x='50%25' y='56%25' dominant-baseline='middle' text-anchor='middle' font-size='140' font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto' fill='%23ffffff'%3EA%3C/text%3E%3C/svg%3E"/>
   <meta name="theme-color" content="#0ea5e9" />
+  <link rel="preconnect" href="https://github.com" crossorigin />
+  <meta name="robots" content="index,follow" />
+  <meta name="author" content="ali90h" />
   <style>
-    :root{
-      --bg:#0b0c0e; --bg-soft:#0f1115; --text:#e6e7ea; --muted:#a7adba; --card:#12141a; --border:#1c1f26; --accent:#0ea5e9;
-      --success:#22c55e; --warning:#f59e0b; --info:#3b82f6; --subtle:#64748b;
-      color-scheme: dark light;
-    }
-    @media (prefers-color-scheme: light){
-      :root{ --bg:#f8f9fb; --bg-soft:#ffffff; --text:#0b1020; --muted:#4b5563; --card:#ffffff; --border:#e5e7eb; --success:#16a34a; --warning:#d97706; --info:#2563eb; --subtle:#6b7280; }
-    }
-    [data-theme="light"]{ --bg:#f8f9fb; --bg-soft:#ffffff; --text:#0b1020; --muted:#4b5563; --card:#ffffff; --border:#e5e7eb; --success:#16a34a; --warning:#d97706; --info:#2563eb; --subtle:#6b7280; }
-    [data-theme="dark"]{ --bg:#0b0c0e; --bg-soft:#0f1115; --text:#e6e7ea; --muted:#a7adba; --card:#12141a; --border:#1c1f26; --success:#22c55e; --warning:#f59e0b; --info:#3b82f6; --subtle:#64748b; }
+    :root{--bg:#0b0c0e;--bg-soft:#0f1115;--text:#e6e7ea;--muted:#a7adba;--card:#12141a;--border:#1c1f26;--accent:#0ea5e9;--success:#22c55e;--warning:#f59e0b;--info:#3b82f6;--subtle:#64748b;color-scheme:dark light}
+    @media (prefers-color-scheme: light){:root{--bg:#f8f9fb;--bg-soft:#ffffff;--text:#0b1020;--muted:#4b5563;--card:#ffffff;--border:#e5e7eb;--success:#16a34a;--warning:#d97706;--info:#2563eb;--subtle:#6b7280}}
+    [data-theme="light"]{--bg:#f8f9fb;--bg-soft:#ffffff;--text:#0b1020;--muted:#4b5563;--card:#ffffff;--border:#e5e7eb;--success:#16a34a;--warning:#d97706;--info:#2563eb;--subtle:#6b7280}
+    [data-theme="dark"]{--bg:#0b0c0e;--bg-soft:#0f1115;--text:#e6e7ea;--muted:#a7adba;--card:#12141a;--border:#1c1f26;--success:#22c55e;--warning:#f59e0b;--info:#3b82f6;--subtle:#64748b}
     html,body{height:100%}
     body{margin:0;background:var(--bg);color:var(--text);font:400 clamp(15px,1.1vw+10px,18px) ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Noto Sans,Apple Color Emoji,Noto Color Emoji,Segoe UI Emoji;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;line-height:1.6}
     .wrap{max-width:920px;margin-inline:auto;padding:20px}
     .skip{position:absolute;left:-9999px}
-    .skip:focus{left:12px;top:12px;background:var(--accent);color:#000;padding:8px 12px;border-radius:10px}
+    .skip:focus{left:12px;top:12px;background:var(--accent);color:#000;padding:8px 12px;border-radius:10px;z-index:1000}
+    a:focus,button:focus{outline:2px solid var(--accent);outline-offset:2px}
+    a:focus:not(:focus-visible),button:focus:not(:focus-visible){outline:none}
+    a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
     header{position:sticky;top:0;backdrop-filter:saturate(120%) blur(8px);background:color-mix(in oklab,var(--bg) 75%,transparent);border-bottom:1px solid var(--border)}
     nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
     nav .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.2px}
     nav .brand .dot{width:10px;height:10px;border-radius:999px;background:var(--accent);box-shadow:0 0 0 3px color-mix(in oklab,var(--accent) 35%,transparent)}
     nav a{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:12px}
-    nav a:hover{color:var(--text);background:var(--card)}
+    nav a:hover,nav a:focus{color:var(--text);background:var(--card)}
+    nav a:focus{outline:none;box-shadow:0 0 0 2px var(--accent)}
     .nav-links{display:flex;gap:6px;flex-wrap:wrap}
     .btn{appearance:none;border:1px solid var(--border);background:var(--card);color:var(--text);padding:8px 12px;border-radius:12px;cursor:pointer;font-weight:600}
-    .btn:hover{border-color:color-mix(in oklab,var(--border) 40%,var(--accent))}
+    .btn:hover,.btn:focus{border-color:color-mix(in oklab,var(--border) 40%,var(--accent))}
+    .btn:focus{outline:none;box-shadow:0 0 0 2px var(--accent)}
     .hero{padding:clamp(28px,10vw,88px) 0 28px}
     .hero h1{font-size:clamp(28px,4.2vw + 16px,48px);margin:0 0 12px;letter-spacing:-.5px;line-height:1.1}
     .hero p{margin:0;color:var(--muted);max-width:65ch;line-height:1.65}
@@ -42,55 +44,46 @@
     .card p{margin:0;color:var(--muted);line-height:1.55}
     .meta{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.92em;margin-top:12px;flex-wrap:wrap}
     @media(min-width:720px){.card.span-6{grid-column:span 6}}
-    /* Enhanced content type distinctions */
     .card[aria-labelledby*="project"] h3::before{content:"🔧 ";opacity:0.7}
     .card[aria-labelledby*="writing"] h3::before{content:"✍️ ";opacity:0.7}
     .card[aria-labelledby*="github"] h3::before{content:"💻 ";opacity:0.7}
-    /* Better mobile touch targets */
-    @media(max-width:719px){
-      .nav-links a, .btn{padding:12px 16px;min-height:44px;display:flex;align-items:center}
-      .card{padding:24px 20px}
-      .grid{gap:16px}
-      .hero{padding:clamp(24px,8vw,48px) 0 24px}
-    }
+    @media(max-width:719px){.nav-links a,.btn{padding:12px 16px;min-height:44px;display:flex;align-items:center}.card{padding:24px 20px}.grid{gap:16px}.hero{padding:clamp(24px,8vw,48px) 0 24px}}
     section{margin:26px 0}
     section>header{display:flex;align-items:center;justify-content:space-between;border:none;backdrop-filter:none;background:transparent;padding:0;margin-bottom:10px}
     section h2{font-size:1.08rem;letter-spacing:.3px;margin:0;color:var(--muted);text-transform:uppercase;font-weight:600}
     footer{margin:44px 0 22px;color:var(--muted);font-size:.92em;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
     a.inline{color:var(--text);text-decoration-color:color-mix(in oklab,var(--accent) 60%,transparent);text-underline-offset:2px}
-    a.inline:hover{text-decoration-color:var(--accent)}
-      /* Typographic + motion tweaks */
+    a.inline:hover,a.inline:focus{text-decoration-color:var(--accent)}
+    a.inline:focus{outline:none;text-shadow:0 0 0 var(--accent)}
     body{font-family:"Inter var", Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Apple Color Emoji","Noto Color Emoji","Segoe UI Emoji"}
-    .hero{ position: relative; }
-    .hero-title{ font-weight: 800; letter-spacing: -0.01em; }
-    .brand .dot{ animation: breathe 6s ease-in-out infinite; }
-    @keyframes breathe{ 0%,100%{ transform: scale(1); box-shadow:0 0 0 3px color-mix(in oklab, var(--accent) 35%, transparent);} 50%{ transform: scale(1.06); box-shadow:0 0 0 7px color-mix(in oklab, var(--accent) 18%, transparent);} }
-    .hero::before{ content:""; position:absolute; inset:auto auto 0 0; width:min(42vw, 420px); height:min(42vw, 420px); background:conic-gradient(from 180deg at 50% 50%, color-mix(in oklab, var(--accent) 70%, transparent), transparent 30% 70%, color-mix(in oklab, var(--accent) 30%, transparent)); opacity:.22; filter:blur(36px) saturate(120%); transform:translate(-6%, -10%) rotate(0deg); border-radius:50%; pointer-events:none; animation:drift 16s ease-in-out infinite alternate; }
-    @keyframes drift{ to{ transform:translate(6%, -2%) rotate(15deg); opacity:.32; } }
-    a.inline{ position: relative; text-decoration: none; }
-    a.inline::after{ content:""; position:absolute; left:0; bottom:-2px; height:1px; width:0; background: var(--accent); transition: width .35s ease; }
-    a.inline:hover::after{ width:100%; }
-    @media (prefers-reduced-motion: reduce){ .brand .dot, .hero::before{ animation:none; } .hero::before{ opacity:.12; } }
-      /* Typography and content enhancements */
+    .hero{position:relative}
+    .hero-title{font-weight:800;letter-spacing:-0.01em}
+    .brand .dot{animation:breathe 6s ease-in-out infinite}
+    @keyframes breathe{0%,100%{transform:scale(1);box-shadow:0 0 0 3px color-mix(in oklab, var(--accent) 35%, transparent)}50%{transform:scale(1.06);box-shadow:0 0 0 7px color-mix(in oklab, var(--accent) 18%, transparent)}}
+    .hero::before{content:"";position:absolute;inset:auto auto 0 0;width:min(42vw, 420px);height:min(42vw, 420px);background:conic-gradient(from 180deg at 50% 50%, color-mix(in oklab, var(--accent) 70%, transparent), transparent 30% 70%, color-mix(in oklab, var(--accent) 30%, transparent));opacity:.22;filter:blur(36px) saturate(120%);transform:translate(-6%, -10%) rotate(0deg);border-radius:50%;pointer-events:none;animation:drift 16s ease-in-out infinite alternate}
+    @keyframes drift{to{transform:translate(6%, -2%) rotate(15deg);opacity:.32}}
+    a.inline{position:relative;text-decoration:none}
+    a.inline::after{content:"";position:absolute;left:0;bottom:-2px;height:1px;width:0;background:var(--accent);transition:width .35s ease}
+    a.inline:hover::after{width:100%}
+    @media (prefers-reduced-motion: reduce){.brand .dot,.hero::before{animation:none}.hero::before{opacity:.12}.card{transition:none}.card:hover{transform:none;box-shadow:none}.w{transition:none}.w:hover{transform:none;text-shadow:none}.w::after{display:none}a.inline::after{transition:none}}
     .card small{background:var(--bg-soft);padding:2px 6px;border-radius:4px;font-size:0.8em;color:var(--subtle);margin-left:6px}
-    /* Reduced motion support for card animations */
-    @media (prefers-reduced-motion: reduce){.card{transition:none}.card:hover{transform:none;box-shadow:none}}
-      /* center hero content */
-    .hero{ text-align:center; }
-    .hero::before{ left:50%; right:auto; transform:translate(-50%, -10%) rotate(0deg); }
-      /* word hover effect */
-    .w{ display:inline-block; position:relative; transition: transform .18s ease, text-shadow .25s ease, color .25s ease; }
-    .w:hover{ transform: translateY(-1px); text-shadow:0 2px 10px color-mix(in oklab, var(--accent) 30%, transparent); }
-    .w::after{ content:""; position:absolute; left:0; right:0; bottom:-2px; height:1px; width:0; margin-inline:auto; background:var(--accent); transition: width .25s ease; }
-    .w:hover::after{ width:100%; }
-    @media (prefers-reduced-motion: reduce){ .w{ transition:none } .w:hover{ transform:none; text-shadow:none } .w::after{ display:none } }
+    .hero{text-align:center}
+    .hero::before{left:50%;right:auto;transform:translate(-50%, -10%) rotate(0deg)}
+    .w{display:inline-block;position:relative;transition:transform .18s ease, text-shadow .25s ease, color .25s ease}
+    .w:hover{transform:translateY(-1px);text-shadow:0 2px 10px color-mix(in oklab, var(--accent) 30%, transparent)}
+    .w::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;width:0;margin-inline:auto;background:var(--accent);transition:width .25s ease}
+    .w:hover::after{width:100%}
   </style>
 </head>
 <body>
   <a class="skip" href="#content">Skip to content</a>
-  <header>
+  <a class="skip" href="#projects">Skip to projects</a>
+  <a class="skip" href="#writing">Skip to writing</a>
+  <a class="skip" href="#github">Skip to GitHub</a>
+  <a class="skip" href="#contact">Skip to contact</a>
+  <header role="banner">
     <div class="wrap">
-      <nav>
+      <nav role="navigation" aria-label="Main navigation">
         <div class="brand" aria-label="Home">
           <span class="dot" aria-hidden="true"></span>
           <a href="/">Home</a>
@@ -99,15 +92,15 @@
           <a href="#projects">Projects</a>
           <a href="#writing">Writing</a>
           <a href="#github">GitHub</a>
-          <button id="theme" class="btn" title="Toggle theme" aria-label="Toggle theme">Theme</button>
+          <button id="theme" class="btn" title="Toggle theme" aria-label="Toggle between light and dark theme">Theme</button>
         </div>
       </nav>
     </div>
   </header>
 
-  <main id="content" class="wrap" data-words="hover">
-    <section class="hero" aria-label="Intro">
-      <h1 class="hero-title">Small, honest tools; usefulness is the only manifesto.</h1>
+  <main id="content" class="wrap" data-words="hover" role="main">
+    <section class="hero" aria-labelledby="hero-heading">
+      <h1 id="hero-heading" class="hero-title">Small, honest tools; usefulness is the only manifesto.</h1>
       <p>I build small tools that get used: tiny CLIs, sharp scripts, and pragmatic open‑source improvements. Full‑stack developer focused on Python, Rust, and JavaScript. This site is fast, no libraries, no external fonts.</p>
       <div class="meta" style="margin-top: 14px; justify-content: center;">
         <span>Python</span>
@@ -122,9 +115,9 @@
       </div>
     </section>
 
-    <section id="projects" aria-label="Projects">
+    <section id="projects" aria-labelledby="projects-heading">
       <header>
-        <h2>Projects</h2>
+        <h2 id="projects-heading">Projects</h2>
         <a class="inline" href="https://github.com/ali90h?tab=repositories">All repos →</a>
       </header>
       <div class="grid">
@@ -157,9 +150,9 @@
       </div>
     </section>
 
-    <section id="writing" aria-label="Writing">
+    <section id="writing" aria-labelledby="writing-heading">
       <header>
-        <h2>Writing</h2>
+        <h2 id="writing-heading">Writing</h2>
         <a class="inline" href="/writing/">Archive →</a>
       </header>
       <div class="grid">
@@ -192,9 +185,9 @@
       </div>
     </section>
 
-    <section id="github" aria-label="GitHub">
+    <section id="github" aria-labelledby="github-heading">
       <header>
-        <h2>GitHub Activity</h2>
+        <h2 id="github-heading">GitHub Activity</h2>
         <a class="inline" href="https://github.com/ali90h">All activity →</a>
       </header>
       <div class="grid">
@@ -225,8 +218,8 @@
       </div>
     </section>
 
-    <section id="contact" aria-label="Contact">
-      <header><h2>Contact</h2></header>
+    <section id="contact" aria-labelledby="contact-heading">
+      <header><h2 id="contact-heading">Contact</h2></header>
       <div class="grid">
         <div class="card span-6">
           <p>Available for collaboration on developer tools, open source projects, and technical consultation.</p>
@@ -242,23 +235,35 @@
     </footer>
   </main>
 
+  <!-- Live region for announcements -->
+  <div id="announcements" aria-live="polite" aria-atomic="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden;"></div>
+
   <script>
     const btn = document.getElementById('theme');
     const root = document.documentElement;
+    const announcements = document.getElementById('announcements');
     const saved = localStorage.getItem('theme');
     if(saved) root.setAttribute('data-theme', saved);
+    
+    function announceTheme(theme) {
+      announcements.textContent = `Theme changed to ${theme} mode`;
+    }
+    
     btn.addEventListener('click', () => {
       const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
       root.setAttribute('data-theme', next);
       localStorage.setItem('theme', next);
+      announceTheme(next);
     });
+    
     document.getElementById('year').textContent = new Date().getFullYear();
-    // wrap words for subtle hover motion
+    
     (function(){
       const root = document.querySelector('[data-words]');
       if(!root) return;
       const targets = root.querySelectorAll('h1, h2, h3, p');
       const shouldSkip = node => node.parentElement && (node.parentElement.closest('a') || node.parentElement.closest('code') || node.parentElement.closest('button'));
+      
       for(const el of targets){
         const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
         const nodes = [];
@@ -266,12 +271,12 @@
         for(const n of nodes){
           if(!n.nodeValue.trim() || shouldSkip(n)) continue;
           const parts = n.nodeValue.split(/(\s+)/);
-          const frag = document.createDocumentFragment();
+          const newFrag = document.createDocumentFragment();
           for(const part of parts){
-            if(/\s+/.test(part)) { frag.appendChild(document.createTextNode(part)); }
-            else { const s = document.createElement('span'); s.className = 'w'; s.textContent = part; frag.appendChild(s); }
+            if(/\s+/.test(part)) { newFrag.appendChild(document.createTextNode(part)); }
+            else { const s = document.createElement('span'); s.className = 'w'; s.textContent = part; newFrag.appendChild(s); }
           }
-          n.parentNode.replaceChild(frag, n);
+          n.parentNode.replaceChild(newFrag, n);
         }
       }
     })();

@@ -134,6 +134,14 @@
     a.inline:hover::after{width:100%}
     @media (prefers-reduced-motion: reduce){.brand .dot,.hero::before{animation:none}.hero::before{opacity:.12}.card{transition:none}.card:hover{transform:none;box-shadow:none}.w{transition:none}.w:hover{transform:none;text-shadow:none}.w::after{display:none}a.inline::after{transition:none}}
     .card small{background:var(--bg-soft);padding:2px 6px;border-radius:4px;font-size:0.8em;color:var(--subtle);margin-left:6px}
+    .featured-project{background:linear-gradient(135deg, color-mix(in oklab, var(--accent) 8%, var(--card)), var(--card));border:1px solid color-mix(in oklab, var(--accent) 20%, var(--border));margin:32px 0;cursor:pointer;text-decoration:none;color:inherit;display:block}
+    .featured-project:hover{border-color:color-mix(in oklab, var(--accent) 40%, var(--border));transform:translateY(-2px);box-shadow:0 8px 24px color-mix(in oklab, var(--accent) 20%, transparent)}
+    .featured-project .project-icon{font-size:2.5em;margin-bottom:8px;display:block}
+    .featured-project h3{font-size:1.4em;margin:0 0 12px;color:var(--text)}
+    .featured-project .tagline{font-size:1.1em;color:color-mix(in oklab, var(--accent) 80%, var(--text));font-weight:500;margin:0 0 12px}
+    .featured-project .dev-status{background:color-mix(in oklab, var(--warning) 15%, var(--bg-soft));border:1px solid color-mix(in oklab, var(--warning) 30%, var(--border));border-radius:8px;padding:10px 14px;margin:16px 0 0;font-size:0.9em;color:var(--warning);font-weight:500}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    @media (prefers-reduced-motion: reduce){.featured-project{transition:none}.featured-project:hover{transform:none;box-shadow:none}}
     .search-modal{position:fixed;top:0;left:0;right:0;bottom:0;background:color-mix(in oklab,var(--bg) 80%,transparent);backdrop-filter:blur(8px);z-index:1000;display:none;align-items:flex-start;justify-content:center;padding-top:20vh}
     .search-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;width:min(500px,90vw);box-shadow:0 8px 32px color-mix(in oklab,var(--accent) 20%,transparent)}
     .search-input{width:100%;background:var(--bg-soft);border:1px solid var(--border);border-radius:8px;padding:12px 16px;font:inherit;color:var(--text);margin-bottom:16px}
@@ -190,6 +198,19 @@
         <span>•</span>
         <span>CLI Applications</span>
       </div>
+    </section>
+
+    <section aria-labelledby="featured-heading">
+      <h2 id="featured-heading" class="sr-only">Featured Project</h2>
+      <a href="https://github.com/ali90h/AutoRepro" class="featured-project card" aria-label="Visit AutoRepro project on GitHub">
+        <span class="project-icon" aria-hidden="true">⚡</span>
+        <h3>AutoRepro</h3>
+        <p class="tagline">Automate reproducibility, effortlessly</p>
+        <p>Transform issue descriptions into reproducible steps and dev‑containers. Built for maintainers who need clear reproduction paths.</p>
+        <div class="dev-status" id="dev-status">
+          🧙‍♂️ The code wizards are still casting spells on this project
+        </div>
+      </a>
     </section>
 
     <section id="projects" aria-labelledby="projects-heading">
@@ -346,6 +367,26 @@
     });
     
     document.getElementById('year').textContent = new Date().getFullYear();
+    
+    // Rotating development messages for AutoRepro
+    const developmentMessages = [
+      "👩‍💻 Currently being built with excessive amounts of coffee and determination",
+      "🧙‍♂️ The code wizards are still casting spells on this project", 
+      "🔮 AutoRepro is evolving - we're teaching it tricks while it's in the digital incubator",
+      "🚧 Under construction: Bits and bytes are still finding their perfect spots",
+      "🧪 In the lab: We're mixing code potions to make AutoRepro magical"
+    ];
+    
+    function setRandomDevMessage() {
+      const devStatus = document.getElementById('dev-status');
+      if (devStatus) {
+        const randomMessage = developmentMessages[Math.floor(Math.random() * developmentMessages.length)];
+        devStatus.textContent = randomMessage;
+      }
+    }
+    
+    // Set initial random message
+    setRandomDevMessage();
     
     // Search functionality
     const searchBtn = document.getElementById('search-btn');

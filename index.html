@@ -149,6 +149,55 @@
     .w:hover{transform:translateY(-1px);text-shadow:0 2px 10px color-mix(in oklab, var(--accent) 30%, transparent)}
     .w::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;width:0;margin-inline:auto;background:var(--accent);transition:width .25s ease}
     .w:hover::after{width:100%}
+    
+    /* Project Page Styles */
+    .project-page{position:fixed;top:0;left:0;right:0;bottom:0;background:var(--bg);z-index:1000;overflow-y:auto;opacity:0;transform:translateY(20px);transition:all 0.3s ease}
+    .project-page.show{opacity:1;transform:translateY(0)}
+    .project-page-content{min-height:100vh;display:flex;flex-direction:column}
+    .project-header{background:var(--card);border-bottom:1px solid var(--border);padding:20px;position:sticky;top:0;backdrop-filter:saturate(120%) blur(8px);background:color-mix(in oklab,var(--bg) 85%,transparent);z-index:10}
+    .project-nav{margin-bottom:16px}
+    .btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted)}
+    .btn-ghost:hover{background:var(--card);color:var(--text);border-color:var(--accent)}
+    .development-banner{display:flex;align-items:center;justify-content:center;gap:12px;background:linear-gradient(135deg, var(--accent), var(--info));color:white;padding:12px 24px;border-radius:12px;font-weight:600;font-size:0.9em;animation:bannerPulse 3s ease-in-out infinite}
+    .banner-icon,.banner-sparkle{font-size:1.2em;animation:sparkle 2s ease-in-out infinite}
+    .banner-sparkle{animation-delay:1s}
+    @keyframes bannerPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+    @keyframes sparkle{0%,100%{transform:rotate(0deg) scale(1)}25%{transform:rotate(-10deg) scale(1.1)}75%{transform:rotate(10deg) scale(1.1)}}
+    .project-main{flex:1;padding-top:40px}
+    .project-hero{text-align:center;margin-bottom:60px}
+    .project-hero h1{font-size:clamp(32px,5vw,56px);margin:0 0 16px;line-height:1.1}
+    .project-type{color:var(--muted);font-size:0.6em;font-weight:400;text-transform:uppercase;letter-spacing:2px}
+    .project-tagline{font-size:1.3em;color:var(--muted);margin:0 0 32px;max-width:50ch;margin-left:auto;margin-right:auto}
+    .project-links{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+    .btn-primary{background:var(--accent);color:white;border-color:var(--accent)}
+    .btn-primary:hover{background:color-mix(in oklab,var(--accent) 85%,black);transform:translateY(-1px)}
+    .btn-secondary{background:var(--card);border-color:var(--border)}
+    .btn-secondary.disabled{opacity:0.6;cursor:not-allowed}
+    .btn-link{background:none;border:none;color:var(--accent);text-decoration:none;padding:0;font-weight:500;cursor:pointer}
+    .btn-link:hover{text-decoration:underline;color:color-mix(in oklab,var(--accent) 80%,black)}
+    .autorepro-card:hover{cursor:pointer}
+    .autorepro-card:focus{outline:2px solid var(--accent);outline-offset:2px}
+    .coming-soon{font-size:0.8em;color:var(--muted)}
+    .project-summary{margin-bottom:60px}
+    .project-summary h2{font-size:1.8em;margin:0 0 32px;text-align:center;color:var(--text)}
+    .summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+    .summary-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;transition:all 0.2s ease}
+    .summary-card:hover{border-color:color-mix(in oklab,var(--border) 50%,var(--accent));transform:translateY(-2px);box-shadow:0 8px 25px color-mix(in oklab,var(--accent) 10%,transparent)}
+    .summary-card h3{margin:0 0 12px;font-size:1.1em;display:flex;align-items:center;gap:8px}
+    .summary-card ul{margin:8px 0;padding-left:20px}
+    .summary-card li{margin:4px 0;color:var(--muted)}
+    .tech-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+    .tech-tag{background:color-mix(in oklab,var(--accent) 15%,transparent);color:var(--accent);padding:4px 12px;border-radius:20px;font-size:0.85em;font-weight:500;border:1px solid color-mix(in oklab,var(--accent) 25%,transparent)}
+    .project-activity h2{font-size:1.8em;margin:0 0 32px;text-align:center;color:var(--text)}
+    .activity-container{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;min-height:300px}
+    .activity-loading{display:flex;align-items:center;justify-content:center;height:200px;color:var(--muted);font-style:italic}
+    .activity-item{border-bottom:1px solid var(--border);padding:16px 0;display:flex;align-items:start;gap:12px}
+    .activity-item:last-child{border-bottom:none}
+    .activity-icon{width:20px;height:20px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;color:white;font-size:0.8em;flex-shrink:0;margin-top:2px}
+    .activity-content h4{margin:0 0 4px;font-size:0.95em}
+    .activity-content p{margin:0;color:var(--muted);font-size:0.9em;line-height:1.4}
+    .activity-meta{display:flex;gap:12px;margin-top:8px;font-size:0.8em;color:var(--muted)}
+    @media(max-width:768px){.project-links{flex-direction:column;align-items:center}.summary-grid{grid-template-columns:1fr}.project-hero h1{font-size:2.5em}.project-tagline{font-size:1.1em}}
   </style>
 </head>
 <body>
@@ -198,11 +247,13 @@
         <a class="inline" href="https://github.com/ali90h?tab=repositories">All repos →</a>
       </header>
       <div class="grid">
-        <article class="card span-6" data-repo="ali90h/AutoRepro">
+        <article class="card span-6 autorepro-card" data-repo="ali90h/AutoRepro" style="cursor: pointer;" tabindex="0" role="button" aria-label="Open AutoRepro project details">
           <h3>AutoRepro <small>CLI</small></h3>
           <p>Transform issue descriptions into reproducible steps and dev‑containers. Scan → Init → Plan → Exec → Report. Built for maintainers who need clear reproduction paths.</p>
           <div class="meta">
-            <a class="inline" href="https://github.com/ali90h/AutoRepro">GitHub</a>
+            <a class="inline" href="https://github.com/ali90h/AutoRepro" onclick="event.stopPropagation()">GitHub</a>
+            <span>•</span>
+            <button class="inline btn-link" onclick="event.stopPropagation(); showAutoReproPage()">Learn More →</button>
             <span>•</span>
             <span data-stars>⭐ 1</span>
             <span>•</span>
@@ -327,6 +378,84 @@
     </div>
   </div>
 
+  <!-- AutoRepro Project Page -->
+  <div id="autorepro-page" class="project-page" style="display: none;">
+    <div class="project-page-content">
+      <header class="project-header">
+        <div class="project-nav">
+          <button id="back-to-home" class="btn btn-ghost" aria-label="Back to homepage">
+            <span>←</span> Back to Home
+          </button>
+        </div>
+        <div class="development-banner" id="dev-banner">
+          <span class="banner-icon">🔮</span>
+          <span id="banner-message">Under Development</span>
+          <span class="banner-sparkle">✨</span>
+        </div>
+      </header>
+
+      <main class="project-main wrap">
+        <section class="project-hero">
+          <h1>AutoRepro <span class="project-type">CLI Tool</span></h1>
+          <p class="project-tagline">Transform issue descriptions into reproducible steps and dev‑containers</p>
+          <div class="project-links">
+            <a href="https://github.com/ali90h/AutoRepro" class="btn btn-primary" target="_blank" rel="noopener">
+              <span>GitHub Repository</span>
+              <span>→</span>
+            </a>
+            <a href="#" class="btn btn-secondary disabled" aria-disabled="true">
+              <span>Documentation</span>
+              <span class="coming-soon">(Coming Soon)</span>
+            </a>
+          </div>
+        </section>
+
+        <section class="project-summary">
+          <h2>Project Overview</h2>
+          <div class="summary-grid">
+            <div class="summary-card">
+              <h3>🎯 Problem It Solves</h3>
+              <p>Issue reproduction is often a time-consuming, error-prone process. Maintainers struggle to understand bug reports, set up environments, and reproduce problems consistently.</p>
+            </div>
+            <div class="summary-card">
+              <h3>⚡ Key Features</h3>
+              <ul>
+                <li>Automated environment scanning and analysis</li>
+                <li>Dev-container generation for consistent reproduction</li>
+                <li>Step-by-step reproduction planning</li>
+                <li>Execution monitoring and reporting</li>
+                <li>Integration with popular issue trackers</li>
+              </ul>
+            </div>
+            <div class="summary-card">
+              <h3>🛠️ Technology Stack</h3>
+              <div class="tech-tags">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">Docker</span>
+                <span class="tech-tag">CLI</span>
+                <span class="tech-tag">Dev-containers</span>
+                <span class="tech-tag">GitHub API</span>
+              </div>
+            </div>
+            <div class="summary-card">
+              <h3>🎭 Development Philosophy</h3>
+              <p>Built for maintainers who value clear reproduction paths. Focus on automation without losing the human touch—tools that enhance rather than replace developer intuition.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="project-activity">
+          <h2>Repository Activity</h2>
+          <div class="activity-container" id="autorepro-activity">
+            <div class="activity-loading">
+              <span>Loading latest activity...</span>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
   <script>
     const btn = document.getElementById('theme');
     const root = document.documentElement;
@@ -354,7 +483,8 @@
     const searchResults = document.getElementById('search-results');
     
     const searchData = [
-      {title: 'AutoRepro CLI', content: 'Transform issue descriptions into reproducible steps and dev-containers. Scan Init Plan Exec Report. Built for maintainers who need clear reproduction paths.', url: '#projects', type: 'project'},
+      {title: 'AutoRepro CLI', content: 'Transform issue descriptions into reproducible steps and dev-containers. Scan Init Plan Exec Report. Built for maintainers who need clear reproduction paths.', url: 'javascript:showAutoReproPage()', type: 'project'},
+      {title: 'AutoRepro Project Details', content: 'Dedicated page with project summary, GitHub activity feed, development status, and technical details. Problem solving, key features, technology stack.', url: 'javascript:showAutoReproPage()', type: 'project'},
       {title: 'ali90h.github.io', content: 'Minimalist personal site with zero dependencies. Single HTML file, inline CSS/JS, dark/light theme. Fast, accessible, honest.', url: '#projects', type: 'project'},
       {title: 'Building CLI tools that developers actually use', content: 'From issue reproduction to automation: lessons learned creating AutoRepro and the importance of tight feedback loops in developer tooling.', url: '#writing', type: 'writing'},
       {title: 'Zero-dependency web development: A minimalist approach', content: 'How to build fast, accessible websites with just HTML, CSS, and vanilla JavaScript. No frameworks, no build steps, maximum performance.', url: '#writing', type: 'writing'},
@@ -398,7 +528,13 @@
     searchResults.addEventListener('click', e => {
       const result = e.target.closest('.search-result');
       if (result) {
-        window.location.hash = result.dataset.url.slice(1);
+        const url = result.dataset.url;
+        if (url.startsWith('javascript:')) {
+          // Execute the JavaScript function
+          eval(url.substring(11));
+        } else {
+          window.location.hash = url.slice(1);
+        }
         hideSearch();
       }
     });
@@ -849,6 +985,192 @@
         accessibilityMonitor.checkAccessibility();
       }
     }, 30000); // Every 30 seconds
+    
+    // AutoRepro Project Page Functionality
+    const autoReproPage = document.getElementById('autorepro-page');
+    const backToHomeBtn = document.getElementById('back-to-home');
+    const autoReproCard = document.querySelector('.autorepro-card');
+    const devBanner = document.getElementById('dev-banner');
+    const bannerMessage = document.getElementById('banner-message');
+    
+    // Magical development messages
+    const magicalMessages = [
+      '🔮 Conjuring reproducible magic...',
+      '✨ Weaving dev-container spells...',
+      '🎭 Orchestrating issue reproduction theatre...',
+      '🧙‍♂️ Brewing automated debugging potions...',
+      '🌟 Channeling maintainer superpowers...',
+      '🎪 Running the greatest debugging show on earth...',
+      '🎨 Painting perfect reproduction paths...',
+      '🔧 Forging legendary developer tools...',
+      '🎵 Composing symphonies of systematic reproduction...',
+      '🚀 Building rocket ships for bug hunting...'
+    ];
+    
+    let messageIndex = 0;
+    
+    function rotateDevMessage() {
+      if (bannerMessage) {
+        bannerMessage.textContent = magicalMessages[messageIndex];
+        messageIndex = (messageIndex + 1) % magicalMessages.length;
+      }
+    }
+    
+    // Rotate messages every 4 seconds
+    setInterval(rotateDevMessage, 4000);
+    
+    function showAutoReproPage() {
+      autoReproPage.style.display = 'block';
+      // Trigger reflow before adding show class for smooth animation
+      autoReproPage.offsetHeight;
+      autoReproPage.classList.add('show');
+      document.body.style.overflow = 'hidden';
+      
+      // Load AutoRepro activity data
+      loadAutoReproActivity();
+      
+      // Announce to screen readers
+      announcements.textContent = 'AutoRepro project page opened';
+    }
+    
+    function hideAutoReproPage() {
+      autoReproPage.classList.remove('show');
+      document.body.style.overflow = '';
+      setTimeout(() => {
+        autoReproPage.style.display = 'none';
+      }, 300);
+      
+      // Announce to screen readers
+      announcements.textContent = 'Returned to homepage';
+    }
+    
+    // Event listeners
+    if (autoReproCard) {
+      autoReproCard.addEventListener('click', showAutoReproPage);
+      autoReproCard.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          showAutoReproPage();
+        }
+      });
+    }
+    
+    if (backToHomeBtn) {
+      backToHomeBtn.addEventListener('click', hideAutoReproPage);
+    }
+    
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && autoReproPage.classList.contains('show')) {
+        hideAutoReproPage();
+      }
+    });
+    
+    // AutoRepro Activity Feed
+    async function loadAutoReproActivity() {
+      const activityContainer = document.getElementById('autorepro-activity');
+      
+      try {
+        // Fetch repository data
+        const [repoData, commitsData, issuesData, prData] = await Promise.all([
+          gitHubAPI.fetchRepo('ali90h', 'AutoRepro'),
+          fetch('https://api.github.com/repos/ali90h/AutoRepro/commits?per_page=5').then(r => r.ok ? r.json() : []),
+          fetch('https://api.github.com/repos/ali90h/AutoRepro/issues?state=all&per_page=5').then(r => r.ok ? r.json() : []),
+          fetch('https://api.github.com/repos/ali90h/AutoRepro/pulls?state=all&per_page=5').then(r => r.ok ? r.json() : [])
+        ]);
+        
+        // Combine and sort activities
+        const activities = [];
+        
+        // Add commits
+        commitsData.forEach(commit => {
+          activities.push({
+            type: 'commit',
+            icon: '📝',
+            title: commit.commit.message.split('\n')[0],
+            description: `Committed by ${commit.commit.author.name}`,
+            date: commit.commit.author.date,
+            url: commit.html_url
+          });
+        });
+        
+        // Add issues
+        issuesData.forEach(issue => {
+          if (!issue.pull_request) {
+            activities.push({
+              type: 'issue',
+              icon: issue.state === 'open' ? '🐛' : '✅',
+              title: issue.title,
+              description: `Issue ${issue.state} by ${issue.user.login}`,
+              date: issue.updated_at,
+              url: issue.html_url
+            });
+          }
+        });
+        
+        // Add pull requests
+        prData.forEach(pr => {
+          activities.push({
+            type: 'pr',
+            icon: pr.state === 'open' ? '🔄' : (pr.merged_at ? '🎉' : '❌'),
+            title: pr.title,
+            description: `Pull request ${pr.state} by ${pr.user.login}`,
+            date: pr.updated_at,
+            url: pr.html_url
+          });
+        });
+        
+        // Sort by date (newest first)
+        activities.sort((a, b) => new Date(b.date) - new Date(a.date));
+        
+        // Render activities
+        if (activities.length === 0) {
+          activityContainer.innerHTML = `
+            <div class="activity-loading">
+              <span>No recent activity found. Repository is in early development stage.</span>
+            </div>
+          `;
+        } else {
+          activityContainer.innerHTML = activities.slice(0, 8).map(activity => `
+            <div class="activity-item">
+              <div class="activity-icon">${activity.icon}</div>
+              <div class="activity-content">
+                <h4><a href="${activity.url}" target="_blank" rel="noopener">${activity.title}</a></h4>
+                <p>${activity.description}</p>
+                <div class="activity-meta">
+                  <span>${gitHubAPI.formatDate(activity.date)}</span>
+                  <span>•</span>
+                  <span>${activity.type}</span>
+                </div>
+              </div>
+            </div>
+          `).join('');
+        }
+        
+        // Add repository stats if available
+        if (repoData) {
+          const statsHtml = `
+            <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border);">
+              <div style="display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; font-size: 0.9em;">
+                <span><strong>${repoData.stargazers_count}</strong> stars</span>
+                <span><strong>${repoData.forks_count}</strong> forks</span>
+                <span><strong>${repoData.open_issues_count}</strong> open issues</span>
+                <span>Last updated <strong>${gitHubAPI.formatDate(repoData.updated_at)}</strong></span>
+              </div>
+            </div>
+          `;
+          activityContainer.innerHTML += statsHtml;
+        }
+        
+      } catch (error) {
+        console.warn('Failed to load AutoRepro activity:', error);
+        activityContainer.innerHTML = `
+          <div class="activity-loading">
+            <span>Unable to load activity data. Please check your connection or try again later.</span>
+          </div>
+        `;
+      }
+    }
     
     // Expose metrics for debugging
     window.ali90hMetrics = {
